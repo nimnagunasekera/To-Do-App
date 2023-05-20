@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:todo/pages/sign_in_page.dart';
+// import 'package:todo/pages/sign_up_page.dart';
 import 'firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 
@@ -24,23 +26,16 @@ class _MyAppState extends State<MyApp> {
       await firebaseAuth.createUserWithEmailAndPassword(
           email: "nimnasamitha123@gmail.com", password: "12345678");
     } catch (e) {
+      // ignore: avoid_print
       print(e);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-          appBar: AppBar(
-            title: const Text('Firebase App'),
-          ),
-          body: Center(
-            child: ElevatedButton(
-              onPressed: signup,
-              child: const Text('Sign Up'),
-            ),
-          )),
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: SignInPage(),
     );
   }
 }
