@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:todo/pages/home_page.dart';
 // import 'package:todo/pages/sign_in_page.dart';
 import 'package:todo/pages/sign_up_page.dart';
+import 'package:todo/service/auth_service.dart';
 import 'firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 
@@ -19,23 +21,29 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  firebase_auth.FirebaseAuth firebaseAuth = firebase_auth.FirebaseAuth.instance;
+  Widget currentPage = const SignUpPage();
+  AuthClass authClass = AuthClass();
 
-  void signup() async {
-    try {
-      await firebaseAuth.createUserWithEmailAndPassword(
-          email: "nimnasamitha123@gmail.com", password: "12345678");
-    } catch (e) {
-      // ignore: avoid_print
-      print(e);
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    checkLogin();
+  }
+
+  void checkLogin() async {
+    String? token = await authClass.getToken();
+    if (token != null) {
+      setState(() {
+        currentPage = const HomePage();
+      });
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: SignUpPage(),
+    return MaterialApp(
+      home: currentPage,
     );
   }
 }
