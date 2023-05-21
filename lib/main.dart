@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:todo/pages/sign_in_page.dart';
-// import 'package:todo/pages/sign_up_page.dart';
+// import 'package:todo/pages/sign_in_page.dart';
+import 'package:todo/pages/sign_up_page.dart';
 import 'firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 
@@ -35,7 +35,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SignInPage(),
+      home: SignUpPage(),
     );
   }
 }
