@@ -68,6 +68,8 @@ class AuthClass {
       await _googleSignIn.signOut();
       await auth.signOut();
       await storage.delete(key: "token");
+      // ignore: empty_catches
     } catch (e) {}
+    return null;
   }
 }

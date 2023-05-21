@@ -5,7 +5,7 @@ import 'package:todo/pages/home_page.dart';
 import 'package:todo/pages/sign_up_page.dart';
 import 'package:todo/service/auth_service.dart';
 import 'firebase_options.dart';
-import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
+// import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,7 +26,6 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     checkLogin();
   }

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:todo/pages/home_page.dart';
+import 'package:todo/pages/phone_auth_page.dart';
 import 'package:todo/pages/sign_in_page.dart';
 import 'package:todo/service/auth_service.dart';
 
@@ -49,7 +50,10 @@ class _SignUpPageState extends State<SignUpPage> {
               SizedBox(
                 height: 15,
               ),
-              buttonItem("assets/phone.svg", "Continue with Mobile", 30, () {}),
+              buttonItem("assets/phone.svg", "Continue with Mobile", 30, () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (_) => PhoneAuthPage()));
+              }),
               SizedBox(
                 height: 15,
               ),
