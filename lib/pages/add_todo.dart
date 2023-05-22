@@ -125,11 +125,11 @@ class _AddTodoPageState extends State<AddTodoPage> {
                       ],
                     ),
                     const SizedBox(
-                      height: 50,
+                      height: 30,
                     ),
                     button(),
                     const SizedBox(
-                      height: 30,
+                      height: 10,
                     ),
                   ],
                 ),
