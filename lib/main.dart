@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:todo/pages/add_todo.dart';
 import 'package:todo/pages/home_page.dart';
 // import 'package:todo/pages/sign_in_page.dart';
 import 'package:todo/pages/sign_up_page.dart';
@@ -41,8 +42,9 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: currentPage,
+    return const MaterialApp(
+      home: AddTodoPage(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }

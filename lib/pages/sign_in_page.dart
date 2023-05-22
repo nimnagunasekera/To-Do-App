@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
+import 'package:todo/pages/sign_up_page.dart';
 import 'package:todo/service/auth_service.dart';
 
 import 'home_page.dart';
@@ -81,11 +82,19 @@ class _SignInPageState extends State<SignInPage> {
                         color: Colors.white,
                         fontSize: 18,
                       )),
-                  Text(" Sign Up",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold)),
+                  InkWell(
+                    onTap: () {
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(builder: (builder) => SignUpPage()),
+                          (route) => false);
+                    },
+                    child: Text(" Sign Up",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold)),
+                  ),
                 ],
               ),
               SizedBox(
