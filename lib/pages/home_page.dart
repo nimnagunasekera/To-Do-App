@@ -19,6 +19,7 @@ class _HomePageState extends State<HomePage> {
   AuthClass authClass = AuthClass();
   final Stream<QuerySnapshot> _stream =
       FirebaseFirestore.instance.collection("Todo").snapshots();
+  List<Select> selected = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,19 +42,40 @@ class _HomePageState extends State<HomePage> {
             width: 25,
           )
         ],
-        bottom: const PreferredSize(
+        bottom: PreferredSize(
           preferredSize: Size.fromHeight(35),
           child: Align(
             alignment: Alignment.centerLeft,
             child: Padding(
               padding: EdgeInsets.only(left: 22),
-              child: Text(
-                "Monday 21",
-                style: TextStyle(
-                  fontSize: 33,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.purpleAccent,
-                ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Monday 21",
+                    style: TextStyle(
+                      fontSize: 33,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.purpleAccent,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      var instance =
+                          FirebaseFirestore.instance.collection("Todo");
+                      for (int i = 0; i < selected.length; i++) {
+                        if (selected[i].checkValue) {
+                          instance.doc(selected[i].id).delete();
+                        }
+                      }
+                    },
+                    icon: const Icon(
+                      Icons.delete,
+                      color: Colors.red,
+                      size: 28,
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -72,7 +94,7 @@ class _HomePageState extends State<HomePage> {
               size: 32,
               color: Colors.white,
             ),
-            label: "Home",
+            label: "",
           ),
           BottomNavigationBarItem(
             icon: InkWell(
@@ -99,7 +121,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            label: "Add",
+            label: "",
           ),
           const BottomNavigationBarItem(
             icon: Icon(
@@ -107,7 +129,7 @@ class _HomePageState extends State<HomePage> {
               size: 32,
               color: Colors.white,
             ),
-            label: "Settings",
+            label: "",
           ),
         ],
       ),
@@ -151,6 +173,8 @@ class _HomePageState extends State<HomePage> {
                       iconData = Icons.task_alt_outlined;
                       iconColor = Colors.blue;
                   }
+                  selected.add(Select(
+                      id: snapshot.data!.docs[index].id, checkValue: false));
                   return InkWell(
                     onTap: () {
                       Navigator.push(
@@ -166,27 +190,29 @@ class _HomePageState extends State<HomePage> {
                     child: TodoCard(
                       // ignore: prefer_if_null_operators
                       title: document["title"] == null ? "" : document["title"],
-                      check: true,
+                      check: selected[index].checkValue,
                       iconBgColor: Colors.white,
                       iconColor: iconColor,
                       iconData: iconData,
                       time: "10 AM",
+                      index: index,
+                      onChange: onChange,
                     ),
                   );
                 });
           }),
     );
   }
+
+  void onChange(int index) {
+    setState(() {
+      selected[index].checkValue = !selected[index].checkValue;
+    });
+  }
 }
 
-//For future use
-//  IconButton(
-//               icon: const Icon(Icons.logout),
-//               onPressed: () async {
-//                 await authClass.logout();
-//                 // ignore: use_build_context_synchronously
-//                 Navigator.pushAndRemoveUntil(
-//                     context,
-//                     MaterialPageRoute(builder: (builder) => const SignUpPage()),
-//                     (route) => false);
-//               })
+class Select {
+  String id;
+  bool checkValue = false;
+  Select({required this.id, required this.checkValue});
+}
