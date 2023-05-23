@@ -128,23 +128,23 @@ class _HomePageState extends State<HomePage> {
                       snapshot.data!.docs[index].data() as Map<String, dynamic>;
                   switch (document["category"]) {
                     case "Food":
-                      iconData = Icons.local_grocery_store_outlined;
+                      iconData = Icons.local_grocery_store;
                       iconColor = Color(0xffff6d6e);
                       break;
                     case "Work":
-                      iconData = Icons.work_outline_outlined;
+                      iconData = Icons.work;
                       iconColor = Color(0xff6557ff);
                       break;
                     case "Workout":
-                      iconData = Icons.fitness_center_outlined;
+                      iconData = Icons.fitness_center;
                       iconColor = Color(0xfff29732);
                       break;
                     case "Design":
-                      iconData = Icons.design_services_outlined;
+                      iconData = Icons.design_services;
                       iconColor = Color(0xff234ebd);
                       break;
                     case "Run":
-                      iconData = Icons.run_circle_outlined;
+                      iconData = Icons.run_circle;
                       iconColor = Color(0xff2bc8d9);
                       break;
                     default:
