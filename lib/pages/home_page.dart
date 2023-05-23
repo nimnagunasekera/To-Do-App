@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:todo/custom/todo_card.dart';
 import 'package:todo/pages/add_todo.dart';
@@ -15,6 +16,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   AuthClass authClass = AuthClass();
+  final Stream<QuerySnapshot> _stream =
+      FirebaseFirestore.instance.collection("Todo").snapshots();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +51,7 @@ class _HomePageState extends State<HomePage> {
                 style: TextStyle(
                   fontSize: 33,
                   fontWeight: FontWeight.w600,
-                  color: Colors.white,
+                  color: Colors.purpleAccent,
                 ),
               ),
             ),
@@ -107,29 +110,57 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-          child: Column(
-            // ignore: prefer_const_literals_to_create_immutables
-            children: [
-              TodoCard(
-                title: "Wake up Bro",
-                check: true,
-                iconBgColor: Colors.white,
-                iconColor: Colors.red,
-                iconData: Icons.alarm,
-                time: "10 AM",
-              ),
-              SizedBox(
-                height: 10,
-              ),
-            ],
-          ),
-        ),
-      ),
+      body: StreamBuilder(
+          stream: _stream,
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            return ListView.builder(
+                itemCount: snapshot.data?.docs.length,
+                itemBuilder: (context, index) {
+                  IconData iconData;
+                  Color iconColor;
+                  Map<String, dynamic> document =
+                      snapshot.data!.docs[index].data() as Map<String, dynamic>;
+                  switch (document["category"]) {
+                    case "Food":
+                      iconData = Icons.local_grocery_store_outlined;
+                      iconColor = Color(0xffff6d6e);
+                      break;
+                    case "Work":
+                      iconData = Icons.work_outline_outlined;
+                      iconColor = Color(0xff6557ff);
+                      break;
+                    case "Workout":
+                      iconData = Icons.fitness_center_outlined;
+                      iconColor = Color(0xfff29732);
+                      break;
+                    case "Design":
+                      iconData = Icons.design_services_outlined;
+                      iconColor = Color(0xff234ebd);
+                      break;
+                    case "Run":
+                      iconData = Icons.run_circle_outlined;
+                      iconColor = Color(0xff2bc8d9);
+                      break;
+                    default:
+                      iconData = Icons.task_alt_outlined;
+                      iconColor = Colors.blue;
+                  }
+                  return TodoCard(
+                    // ignore: prefer_if_null_operators
+                    title: document["title"] == null ? "" : document["title"],
+                    check: true,
+                    iconBgColor: Colors.white,
+                    iconColor: iconColor,
+                    iconData: iconData,
+                    time: "10 AM",
+                  );
+                });
+          }),
     );
   }
 }
