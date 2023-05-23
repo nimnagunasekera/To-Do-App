@@ -37,7 +37,9 @@ class _AddTodoPageState extends State<AddTodoPage> {
                 height: 30,
               ),
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pop(context);
+                },
                 icon: const Icon(
                   CupertinoIcons.arrow_left,
                   color: Colors.white,
