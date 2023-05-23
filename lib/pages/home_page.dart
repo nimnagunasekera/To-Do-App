@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:todo/custom/todo_card.dart';
 import 'package:todo/pages/add_todo.dart';
+import 'package:todo/pages/view_data.dart';
 import '../service/auth_service.dart';
 // import 'sign_up_page.dart';
 
@@ -150,14 +151,27 @@ class _HomePageState extends State<HomePage> {
                       iconData = Icons.task_alt_outlined;
                       iconColor = Colors.blue;
                   }
-                  return TodoCard(
-                    // ignore: prefer_if_null_operators
-                    title: document["title"] == null ? "" : document["title"],
-                    check: true,
-                    iconBgColor: Colors.white,
-                    iconColor: iconColor,
-                    iconData: iconData,
-                    time: "10 AM",
+                  return InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (builder) => ViewData(
+                            document: document,
+                            id: snapshot.data!.docs[index].id,
+                          ),
+                        ),
+                      );
+                    },
+                    child: TodoCard(
+                      // ignore: prefer_if_null_operators
+                      title: document["title"] == null ? "" : document["title"],
+                      check: true,
+                      iconBgColor: Colors.white,
+                      iconColor: iconColor,
+                      iconData: iconData,
+                      time: "10 AM",
+                    ),
                   );
                 });
           }),
