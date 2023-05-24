@@ -6,6 +6,7 @@ import 'package:todo/custom/todo_card.dart';
 import 'package:todo/pages/add_todo.dart';
 import 'package:todo/pages/view_data.dart';
 import '../service/auth_service.dart';
+import 'package:intl/intl.dart';
 // import 'sign_up_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -20,8 +21,11 @@ class _HomePageState extends State<HomePage> {
   final Stream<QuerySnapshot> _stream =
       FirebaseFirestore.instance.collection("Todo").snapshots();
   List<Select> selected = [];
+  late String currentDate;
+
   @override
   Widget build(BuildContext context) {
+    currentDate = DateFormat('EEEE dd').format(DateTime.now());
     return Scaffold(
       backgroundColor: Colors.black87,
       appBar: AppBar(
@@ -52,7 +56,7 @@ class _HomePageState extends State<HomePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Monday 21",
+                    currentDate,
                     style: TextStyle(
                       fontSize: 33,
                       fontWeight: FontWeight.w600,
