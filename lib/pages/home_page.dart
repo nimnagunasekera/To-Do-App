@@ -54,23 +54,29 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     currentDate = DateFormat('EEEE dd').format(DateTime.now());
     return Scaffold(
-      backgroundColor: Colors.black87,
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
-        backgroundColor: Colors.black87,
-        title: const Text(
-          "Today's Tasks",
-          style: TextStyle(
-            fontSize: 34,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
+        elevation: 0,
+        backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
+        title: Padding(
+          padding: const EdgeInsets.only(top: 10.0),
+          child: Text(
+            "Today's Tasks",
+            style: TextStyle(
+              letterSpacing: 1,
+              fontSize: 30,
+              fontWeight: FontWeight.bold,
+              color: Theme.of(context).colorScheme.secondary,
+              //add padding to the title
+            ),
           ),
         ),
         actions: [
           IconButton(
             onPressed: removeImage,
-            icon: const Icon(
+            icon: Icon(
               Icons.delete,
-              color: Colors.white,
+              color: Theme.of(context).colorScheme.secondary,
             ),
           ),
           InkWell(
@@ -79,12 +85,12 @@ class _HomePageState extends State<HomePage> {
             },
             child: Center(
               child: imageUrl == ""
-                  ? const CircleAvatar(
+                  ? CircleAvatar(
                       radius: 16,
-                      backgroundColor: Colors.white,
+                      backgroundColor: Theme.of(context).colorScheme.secondary,
                       child: Icon(
                         Icons.person,
-                        color: Colors.black,
+                        color: Theme.of(context).colorScheme.primary,
                       ),
                     )
                   : CircleAvatar(
@@ -98,7 +104,7 @@ class _HomePageState extends State<HomePage> {
           )
         ],
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(35),
+          preferredSize: Size.fromHeight(40),
           child: Align(
             alignment: Alignment.centerLeft,
             child: Padding(
@@ -109,9 +115,10 @@ class _HomePageState extends State<HomePage> {
                   Text(
                     currentDate,
                     style: TextStyle(
-                      fontSize: 33,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.purpleAccent,
+                      letterSpacing: 1,
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.secondary,
                     ),
                   ),
                   IconButton(
@@ -126,7 +133,7 @@ class _HomePageState extends State<HomePage> {
                     },
                     icon: const Icon(
                       Icons.delete,
-                      color: Colors.red,
+                      color: Color.fromARGB(255, 196, 16, 3),
                       size: 28,
                     ),
                   ),
@@ -139,15 +146,15 @@ class _HomePageState extends State<HomePage> {
 
       //Bottom navigation bar
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.black87,
+        backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
         // selectedItemColor: Colors.white,
         // unselectedItemColor: Colors.grey,
         items: [
-          const BottomNavigationBarItem(
+          BottomNavigationBarItem(
             icon: Icon(
               Icons.home,
               size: 32,
-              color: Colors.white,
+              color: Theme.of(context).colorScheme.secondary,
             ),
             label: "",
           ),
@@ -169,10 +176,10 @@ class _HomePageState extends State<HomePage> {
                     Colors.purpleAccent,
                   ]),
                 ),
-                child: const Icon(
+                child: Icon(
                   Icons.add,
                   size: 32,
-                  color: Colors.white,
+                  color: Theme.of(context).colorScheme.secondary,
                 ),
               ),
             ),
@@ -187,7 +194,7 @@ class _HomePageState extends State<HomePage> {
               child: Icon(
                 Icons.settings,
                 size: 32,
-                color: Colors.white,
+                color: Theme.of(context).colorScheme.secondary,
               ),
             ),
             label: "",
@@ -252,7 +259,7 @@ class _HomePageState extends State<HomePage> {
                       // ignore: prefer_if_null_operators
                       title: document["title"] == null ? "" : document["title"],
                       check: selected[index].checkValue,
-                      iconBgColor: Colors.white,
+                      iconBgColor: Theme.of(context).colorScheme.secondary,
                       iconColor: iconColor,
                       iconData: iconData,
                       time: "",

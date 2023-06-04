@@ -59,7 +59,7 @@ class TodoCard extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
-                color: const Color(0xff2a2e3d),
+                color: Theme.of(context).colorScheme.secondaryContainer,
                 child: Row(
                   children: [
                     const SizedBox(

@@ -23,10 +23,10 @@ class _AddTodoPageState extends State<AddTodoPage> {
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           gradient: LinearGradient(colors: [
-            Color(0xff1d1e26),
-            Color(0xff252041),
+            Theme.of(context).colorScheme.primaryContainer,
+            Theme.of(context).colorScheme.secondaryContainer,
           ]),
         ),
         child: SingleChildScrollView(
@@ -40,9 +40,9 @@ class _AddTodoPageState extends State<AddTodoPage> {
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                icon: const Icon(
+                icon: Icon(
                   CupertinoIcons.arrow_left,
-                  color: Colors.white,
+                  color: Theme.of(context).colorScheme.secondary,
                   size: 28,
                 ),
               ),
@@ -52,10 +52,10 @@ class _AddTodoPageState extends State<AddTodoPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    Text(
                       "Create",
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Theme.of(context).colorScheme.secondary,
                         fontSize: 33,
                         fontWeight: FontWeight.bold,
                         letterSpacing: 4,
@@ -64,10 +64,10 @@ class _AddTodoPageState extends State<AddTodoPage> {
                     const SizedBox(
                       height: 8,
                     ),
-                    const Text(
-                      "New Todo",
+                    Text(
+                      "New To-do",
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Theme.of(context).colorScheme.secondary,
                         fontSize: 33,
                         fontWeight: FontWeight.bold,
                         letterSpacing: 2,
@@ -174,11 +174,11 @@ class _AddTodoPageState extends State<AddTodoPage> {
             ],
           ),
         ),
-        child: const Center(
+        child: Center(
           child: Text(
-            "Add Todo",
+            "Add To-do",
             style: TextStyle(
-              color: Colors.white,
+              color: Theme.of(context).colorScheme.secondary,
               fontSize: 18,
               fontWeight: FontWeight.w600,
             ),
@@ -193,24 +193,24 @@ class _AddTodoPageState extends State<AddTodoPage> {
       height: 150,
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
-        color: const Color(0xff2a2e3d),
+        color: Theme.of(context).colorScheme.tertiaryContainer,
         borderRadius: BorderRadius.circular(15),
       ),
       child: TextFormField(
         controller: _descriptionController,
-        style: const TextStyle(
-          color: Colors.grey,
+        style: TextStyle(
+          color: Theme.of(context).colorScheme.tertiary,
           fontSize: 17,
         ),
         maxLines: null,
-        decoration: const InputDecoration(
+        decoration: InputDecoration(
           border: InputBorder.none,
           hintText: "Task Description",
           hintStyle: TextStyle(
-            color: Colors.grey,
+            color: Theme.of(context).colorScheme.tertiary,
             fontSize: 17,
           ),
-          contentPadding: EdgeInsets.only(
+          contentPadding: const EdgeInsets.only(
             left: 20,
             right: 20,
           ),
@@ -227,14 +227,18 @@ class _AddTodoPageState extends State<AddTodoPage> {
         });
       },
       child: Chip(
-        backgroundColor: type == label ? Colors.white : Color(color),
+        backgroundColor: type == label
+            ? Theme.of(context).colorScheme.secondary
+            : Color(color),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
         label: Text(
           label,
           style: TextStyle(
-            color: type == label ? Colors.black : Colors.white,
+            color: type == label
+                ? Theme.of(context).colorScheme.primary
+                : Theme.of(context).colorScheme.secondary,
             fontSize: 15,
             fontWeight: FontWeight.w600,
           ),
@@ -252,14 +256,18 @@ class _AddTodoPageState extends State<AddTodoPage> {
         });
       },
       child: Chip(
-        backgroundColor: category == label ? Colors.white : Color(color),
+        backgroundColor: category == label
+            ? Theme.of(context).colorScheme.secondary
+            : Color(color),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
         label: Text(
           label,
           style: TextStyle(
-            color: category == label ? Colors.black : Colors.white,
+            color: category == label
+                ? Theme.of(context).colorScheme.primary
+                : Theme.of(context).colorScheme.secondary,
             fontSize: 15,
             fontWeight: FontWeight.w600,
           ),
@@ -274,24 +282,24 @@ class _AddTodoPageState extends State<AddTodoPage> {
       height: 55,
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
-        color: const Color(0xff2a2e3d),
+        color: Theme.of(context).colorScheme.tertiaryContainer,
         borderRadius: BorderRadius.circular(15),
       ),
       child: Center(
         child: TextFormField(
           controller: _titleController,
-          style: const TextStyle(
-            color: Colors.grey,
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.tertiary,
             fontSize: 17,
           ),
-          decoration: const InputDecoration(
+          decoration: InputDecoration(
             border: InputBorder.none,
             hintText: "Task Title",
             hintStyle: TextStyle(
-              color: Colors.grey,
+              color: Theme.of(context).colorScheme.tertiary,
               fontSize: 17,
             ),
-            contentPadding: EdgeInsets.only(
+            contentPadding: const EdgeInsets.only(
               left: 20,
               right: 20,
               bottom: 0,
@@ -305,8 +313,8 @@ class _AddTodoPageState extends State<AddTodoPage> {
   Widget label(String label) {
     return Text(
       label,
-      style: const TextStyle(
-          color: Colors.white,
+      style: TextStyle(
+          color: Theme.of(context).colorScheme.secondary,
           fontSize: 16.5,
           fontWeight: FontWeight.w600,
           letterSpacing: 0.2),

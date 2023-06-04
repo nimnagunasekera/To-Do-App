@@ -1,9 +1,13 @@
+// ignore_for_file: unused_import
+
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:todo/pages/home_page.dart';
 // import 'package:todo/pages/sign_in_page.dart';
 import 'package:todo/pages/sign_up_page.dart';
 import 'package:todo/service/auth_service.dart';
+import 'package:todo/themes/dark_theme.dart';
+import 'package:todo/themes/light_theme.dart';
 import 'firebase_options.dart';
 // import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 
@@ -41,8 +45,10 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: SignUpPage(),
+    return MaterialApp(
+      // theme: lightTheme,
+      theme: darkTheme,
+      home: const SignUpPage(),
       debugShowCheckedModeBanner: false,
     );
   }
