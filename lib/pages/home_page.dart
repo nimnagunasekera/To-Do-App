@@ -255,7 +255,7 @@ class _HomePageState extends State<HomePage> {
                       iconBgColor: Colors.white,
                       iconColor: iconColor,
                       iconData: iconData,
-                      time: "10 AM",
+                      time: "",
                       index: index,
                       onChange: onChange,
                     ),
