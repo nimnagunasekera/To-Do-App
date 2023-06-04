@@ -24,12 +24,13 @@ class _PhoneAuthPageState extends State<PhoneAuthPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black87,
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
-        backgroundColor: Colors.black87,
-        title: const Text(
+        backgroundColor: Theme.of(context).colorScheme.background,
+        title: Text(
           "Sign Up",
-          style: TextStyle(color: Colors.white, fontSize: 24),
+          style: TextStyle(
+              color: Theme.of(context).colorScheme.secondary, fontSize: 24),
         ),
         centerTitle: true,
       ),
@@ -55,18 +56,20 @@ class _PhoneAuthPageState extends State<PhoneAuthPage> {
                     Expanded(
                       child: Container(
                         height: 1,
-                        color: Colors.grey,
+                        color: Theme.of(context).colorScheme.tertiary,
                         margin: const EdgeInsets.symmetric(horizontal: 12),
                       ),
                     ),
-                    const Text(
+                    Text(
                       "Enter 6 digit code",
-                      style: TextStyle(fontSize: 16, color: Colors.white),
+                      style: TextStyle(
+                          fontSize: 16,
+                          color: Theme.of(context).colorScheme.secondary),
                     ),
                     Expanded(
                       child: Container(
                         height: 1,
-                        color: Colors.grey,
+                        color: Theme.of(context).colorScheme.tertiary,
                         margin: const EdgeInsets.symmetric(horizontal: 12),
                       ),
                     ),
@@ -85,16 +88,18 @@ class _PhoneAuthPageState extends State<PhoneAuthPage> {
                 children: [
                   const TextSpan(
                     text: "Resend code in ",
-                    style: TextStyle(fontSize: 16, color: Colors.yellowAccent),
+                    style: TextStyle(
+                        fontSize: 16, color: Color.fromARGB(255, 153, 153, 0)),
                   ),
                   TextSpan(
                     text: "00:$start",
-                    style:
-                        const TextStyle(fontSize: 16, color: Colors.pinkAccent),
+                    style: const TextStyle(
+                        fontSize: 16, color: Color.fromARGB(255, 192, 49, 97)),
                   ),
                   const TextSpan(
                     text: " sec",
-                    style: TextStyle(fontSize: 16, color: Colors.yellowAccent),
+                    style: TextStyle(
+                        fontSize: 16, color: Color.fromARGB(255, 153, 153, 0)),
                   ),
                 ],
               )),
@@ -110,14 +115,14 @@ class _PhoneAuthPageState extends State<PhoneAuthPage> {
                     height: 60,
                     width: MediaQuery.of(context).size.width - 30,
                     decoration: BoxDecoration(
-                        color: const Color(0xffff9601),
+                        color: const Color.fromARGB(255, 255, 149, 1),
                         borderRadius: BorderRadius.circular(15)),
                     child: const Center(
                       child: Text(
                         "Verify & Proceed",
                         style: TextStyle(
                             fontSize: 17,
-                            color: Color(0xfffbe2ae),
+                            color: Color.fromARGB(255, 75, 55, 13),
                             fontWeight: FontWeight.w700),
                       ),
                     )),
@@ -152,11 +157,12 @@ class _PhoneAuthPageState extends State<PhoneAuthPage> {
       width: MediaQuery.of(context).size.width - 34,
       fieldWidth: 50,
       otpFieldStyle: OtpFieldStyle(
-        backgroundColor: const Color(0xff1d1d1d),
-        borderColor: Colors.white,
-        focusBorderColor: Colors.white,
+        backgroundColor: const Color.fromARGB(255, 143, 143, 143),
+        borderColor: Theme.of(context).colorScheme.secondary,
+        focusBorderColor: Theme.of(context).colorScheme.secondary,
       ),
-      style: const TextStyle(fontSize: 17, color: Colors.white),
+      style: TextStyle(
+          fontSize: 17, color: Theme.of(context).colorScheme.secondary),
       textFieldAlignment: MainAxisAlignment.spaceAround,
       fieldStyle: FieldStyle.underline,
       onCompleted: (pin) {
@@ -174,23 +180,26 @@ class _PhoneAuthPageState extends State<PhoneAuthPage> {
       width: MediaQuery.of(context).size.width - 40,
       height: 60,
       decoration: BoxDecoration(
-          color: const Color(0xff1d1d1d),
+          color: const Color.fromARGB(255, 143, 143, 143),
           borderRadius: BorderRadius.circular(15)),
       child: TextFormField(
         controller: phoneController,
-        style: const TextStyle(color: Colors.white, fontSize: 17),
+        style: TextStyle(
+            color: Theme.of(context).colorScheme.secondary, fontSize: 17),
         keyboardType: TextInputType.number,
         decoration: InputDecoration(
           border: InputBorder.none,
           hintText: "Enter your phone number",
-          hintStyle: const TextStyle(color: Colors.white54, fontSize: 17),
+          hintStyle: TextStyle(
+              color: Theme.of(context).colorScheme.secondary, fontSize: 17),
           contentPadding:
               const EdgeInsets.symmetric(vertical: 19, horizontal: 8),
-          prefixIcon: const Padding(
-            padding: EdgeInsets.symmetric(vertical: 14, horizontal: 15),
+          prefixIcon: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 15),
             child: Text(
               " (+94) ",
-              style: TextStyle(color: Colors.white, fontSize: 17),
+              style: TextStyle(
+                  color: Theme.of(context).colorScheme.secondary, fontSize: 17),
             ),
           ),
           suffixIcon: InkWell(
@@ -210,7 +219,9 @@ class _PhoneAuthPageState extends State<PhoneAuthPage> {
               child: Text(
                 buttonName,
                 style: TextStyle(
-                    color: wait ? Colors.grey : Colors.white,
+                    color: wait
+                        ? Theme.of(context).colorScheme.tertiary
+                        : Theme.of(context).colorScheme.secondary,
                     fontSize: 17,
                     fontWeight: FontWeight.bold),
               ),

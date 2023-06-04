@@ -6,16 +6,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:todo/custom/todo_card.dart';
 import 'package:todo/pages/add_todo.dart';
 import 'package:todo/pages/profile.dart';
 import 'package:todo/pages/view_data.dart';
-import '../service/auth_service.dart';
-import 'package:intl/intl.dart';
-// import 'sign_up_page.dart';
+import 'package:todo/service/auth_service.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -27,26 +26,33 @@ class _HomePageState extends State<HomePage> {
       FirebaseFirestore.instance.collection("Todo").snapshots();
   List<Select> selected = [];
   late String currentDate;
-  String imageUrl = "";
+  late String? imageUrl;
+  late File? _image;
 
   void pickUploadImage() async {
     final image = await ImagePicker().pickImage(source: ImageSource.gallery);
-
-    Reference ref = FirebaseStorage.instance.ref().child("profile.png");
-
-    await ref.putFile(File(image!.path));
-    ref.getDownloadURL().then((value) {
-      // ignore: avoid_print
-      print(value);
+    if (image != null) {
       setState(() {
-        imageUrl = value;
+        _image = File(image.path);
       });
-    });
+
+      Reference ref = FirebaseStorage.instance.ref().child("profile.png");
+
+      await ref.putFile(_image!);
+      ref.getDownloadURL().then((value) {
+        // ignore: avoid_print
+        print(value);
+        setState(() {
+          imageUrl = value;
+        });
+      });
+    }
   }
 
   void removeImage() {
     setState(() {
-      imageUrl = "";
+      _image = null;
+      imageUrl = null;
     });
   }
 
@@ -67,7 +73,6 @@ class _HomePageState extends State<HomePage> {
               fontSize: 30,
               fontWeight: FontWeight.bold,
               color: Theme.of(context).colorScheme.secondary,
-              //add padding to the title
             ),
           ),
         ),
@@ -84,7 +89,7 @@ class _HomePageState extends State<HomePage> {
               pickUploadImage();
             },
             child: Center(
-              child: imageUrl == ""
+              child: imageUrl == null
                   ? CircleAvatar(
                       radius: 16,
                       backgroundColor: Theme.of(context).colorScheme.secondary,
@@ -95,7 +100,7 @@ class _HomePageState extends State<HomePage> {
                     )
                   : CircleAvatar(
                       radius: 16,
-                      backgroundImage: NetworkImage(imageUrl),
+                      backgroundImage: NetworkImage(imageUrl!),
                     ),
             ),
           ),
@@ -147,8 +152,6 @@ class _HomePageState extends State<HomePage> {
       //Bottom navigation bar
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
-        // selectedItemColor: Colors.white,
-        // unselectedItemColor: Colors.grey,
         items: [
           BottomNavigationBarItem(
             icon: Icon(
@@ -202,73 +205,76 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       body: StreamBuilder(
-          stream: _stream,
-          builder: (context, snapshot) {
-            if (!snapshot.hasData) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-            return ListView.builder(
-                itemCount: snapshot.data?.docs.length,
-                itemBuilder: (context, index) {
-                  IconData iconData;
-                  Color iconColor;
-                  Map<String, dynamic> document =
-                      snapshot.data!.docs[index].data() as Map<String, dynamic>;
-                  switch (document["category"]) {
-                    case "Food":
-                      iconData = Icons.local_grocery_store;
-                      iconColor = Color(0xffff6d6e);
-                      break;
-                    case "Work":
-                      iconData = Icons.work;
-                      iconColor = Color(0xff6557ff);
-                      break;
-                    case "Workout":
-                      iconData = Icons.fitness_center;
-                      iconColor = Color(0xfff29732);
-                      break;
-                    case "Design":
-                      iconData = Icons.design_services;
-                      iconColor = Color(0xff234ebd);
-                      break;
-                    case "Run":
-                      iconData = Icons.run_circle;
-                      iconColor = Color(0xff2bc8d9);
-                      break;
-                    default:
-                      iconData = Icons.task_alt_outlined;
-                      iconColor = Colors.blue;
-                  }
-                  selected.add(Select(
-                      id: snapshot.data!.docs[index].id, checkValue: false));
-                  return InkWell(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (builder) => ViewData(
-                            document: document,
-                            id: snapshot.data!.docs[index].id,
-                          ),
-                        ),
-                      );
-                    },
-                    child: TodoCard(
-                      // ignore: prefer_if_null_operators
-                      title: document["title"] == null ? "" : document["title"],
-                      check: selected[index].checkValue,
-                      iconBgColor: Theme.of(context).colorScheme.secondary,
-                      iconColor: iconColor,
-                      iconData: iconData,
-                      time: "",
-                      index: index,
-                      onChange: onChange,
+        stream: _stream,
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          return ListView.builder(
+            itemCount: snapshot.data?.docs.length,
+            itemBuilder: (context, index) {
+              IconData iconData;
+              Color iconColor;
+              Map<String, dynamic> document =
+                  snapshot.data!.docs[index].data() as Map<String, dynamic>;
+              switch (document["category"]) {
+                case "Food":
+                  iconData = Icons.local_grocery_store;
+                  iconColor = Color(0xffff6d6e);
+                  break;
+                case "Work":
+                  iconData = Icons.work;
+                  iconColor = Color(0xff6557ff);
+                  break;
+                case "Workout":
+                  iconData = Icons.fitness_center;
+                  iconColor = Color(0xfff29732);
+                  break;
+                case "Design":
+                  iconData = Icons.design_services;
+                  iconColor = Color(0xff234ebd);
+                  break;
+                case "Run":
+                  iconData = Icons.run_circle;
+                  iconColor = Color(0xff2bc8d9);
+                  break;
+                default:
+                  iconData = Icons.task_alt_outlined;
+                  iconColor = Colors.blue;
+              }
+              selected.add(Select(
+                id: snapshot.data!.docs[index].id,
+                checkValue: false,
+              ));
+              return InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (builder) => ViewData(
+                        document: document,
+                        id: snapshot.data!.docs[index].id,
+                      ),
                     ),
                   );
-                });
-          }),
+                },
+                child: TodoCard(
+                  title: document["title"] ?? "",
+                  check: selected[index].checkValue,
+                  iconBgColor: Theme.of(context).colorScheme.secondary,
+                  iconColor: iconColor,
+                  iconData: iconData,
+                  time: "",
+                  index: index,
+                  onChange: onChange,
+                ),
+              );
+            },
+          );
+        },
+      ),
     );
   }
 

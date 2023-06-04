@@ -35,12 +35,14 @@ class _SignInPageState extends State<SignInPage> {
               .size
               .height, //height of the screen of the device
           width: MediaQuery.of(context).size.width, //width of the screen
-          color: Colors.black,
+          color: Theme.of(context).colorScheme.primary,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text("Sign In",
-                  style: TextStyle(fontSize: 35, color: Colors.white)),
+                  style: TextStyle(
+                      fontSize: 35,
+                      color: Theme.of(context).colorScheme.secondary)),
               SizedBox(
                 height: 20,
               ),
@@ -57,7 +59,9 @@ class _SignInPageState extends State<SignInPage> {
               ),
               Text(
                 "Or",
-                style: TextStyle(color: Colors.white, fontSize: 18),
+                style: TextStyle(
+                    color: Theme.of(context).colorScheme.secondary,
+                    fontSize: 18),
               ),
               SizedBox(
                 height: 15,
@@ -79,7 +83,7 @@ class _SignInPageState extends State<SignInPage> {
                 children: [
                   Text("If don't have an account? ",
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Theme.of(context).colorScheme.secondary,
                         fontSize: 18,
                       )),
                   InkWell(
@@ -91,7 +95,7 @@ class _SignInPageState extends State<SignInPage> {
                     },
                     child: Text(" Sign Up",
                         style: TextStyle(
-                            color: Colors.white,
+                            color: Theme.of(context).colorScheme.secondary,
                             fontSize: 18,
                             fontWeight: FontWeight.bold)),
                   ),
@@ -102,7 +106,7 @@ class _SignInPageState extends State<SignInPage> {
               ),
               Text("Forgot Password?",
                   style: TextStyle(
-                      color: Colors.white,
+                      color: Theme.of(context).colorScheme.secondary,
                       fontSize: 17,
                       fontWeight: FontWeight.bold)),
             ],
@@ -155,7 +159,7 @@ class _SignInPageState extends State<SignInPage> {
               : Text(
                   "Sign In",
                   style: TextStyle(
-                    color: Colors.white,
+                    color: Theme.of(context).colorScheme.secondary,
                     fontSize: 20,
                   ),
                 ),
@@ -172,13 +176,13 @@ class _SignInPageState extends State<SignInPage> {
         width: MediaQuery.of(context).size.width - 60,
         height: 60,
         child: Card(
-          color: Colors.black,
+          color: Theme.of(context).colorScheme.primary,
           elevation: 8,
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(15),
               side: BorderSide(
                 width: 1,
-                color: Colors.grey,
+                color: Theme.of(context).colorScheme.tertiary,
               )),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -194,7 +198,7 @@ class _SignInPageState extends State<SignInPage> {
               Text(
                 buttonName,
                 style: TextStyle(
-                  color: Colors.white,
+                  color: Theme.of(context).colorScheme.secondary,
                   fontSize: 17,
                 ),
               ),
@@ -215,13 +219,13 @@ class _SignInPageState extends State<SignInPage> {
         obscureText: obscureText,
         style: TextStyle(
           fontSize: 17,
-          color: Colors.white,
+          color: Theme.of(context).colorScheme.secondary,
         ),
         decoration: InputDecoration(
           labelText: labeltext,
           labelStyle: TextStyle(
             fontSize: 17,
-            color: Colors.white,
+            color: Theme.of(context).colorScheme.secondary,
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(15),
@@ -234,7 +238,7 @@ class _SignInPageState extends State<SignInPage> {
             borderRadius: BorderRadius.circular(15),
             borderSide: BorderSide(
               width: 1,
-              color: Colors.grey,
+              color: Theme.of(context).colorScheme.tertiary,
             ),
           ),
         ),

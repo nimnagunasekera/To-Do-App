@@ -16,7 +16,7 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black87,
+      backgroundColor: Theme.of(context).colorScheme.background,
       // ignore: sized_box_for_whitespace
       body: SafeArea(
         // ignore: sized_box_for_whitespace
@@ -47,9 +47,9 @@ class _ProfileState extends State<Profile> {
                           image = image;
                         });
                       },
-                      icon: const Icon(
+                      icon: Icon(
                         Icons.add_a_photo,
-                        color: Colors.teal,
+                        color: Theme.of(context).colorScheme.secondaryContainer,
                         size: 30,
                       )),
                 ],
@@ -77,14 +77,14 @@ class _ProfileState extends State<Profile> {
         height: 40,
         width: MediaQuery.of(context).size.width / 2,
         decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 1, 138, 124),
+          color: Theme.of(context).colorScheme.secondaryContainer,
           borderRadius: BorderRadius.circular(15),
         ),
-        child: const Center(
+        child: Center(
           child: Text(
             "Upload",
             style: TextStyle(
-              color: Colors.white,
+              color: Theme.of(context).colorScheme.secondary,
               fontSize: 18,
               fontWeight: FontWeight.w600,
             ),

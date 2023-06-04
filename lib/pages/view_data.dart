@@ -37,10 +37,10 @@ class _ViewDataState extends State<ViewData> {
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           gradient: LinearGradient(colors: [
-            Color(0xff1d1e26),
-            Color(0xff252041),
+            Theme.of(context).colorScheme.primaryContainer,
+            Theme.of(context).colorScheme.secondaryContainer,
           ]),
         ),
         child: SingleChildScrollView(
@@ -57,9 +57,9 @@ class _ViewDataState extends State<ViewData> {
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    icon: const Icon(
+                    icon: Icon(
                       CupertinoIcons.arrow_left,
-                      color: Colors.white,
+                      color: Theme.of(context).colorScheme.secondary,
                       size: 28,
                     ),
                   ),
@@ -75,7 +75,7 @@ class _ViewDataState extends State<ViewData> {
                         },
                         icon: const Icon(
                           Icons.delete,
-                          color: Colors.red,
+                          color: Color.fromARGB(255, 196, 16, 3),
                           size: 28,
                         ),
                       ),
@@ -87,7 +87,9 @@ class _ViewDataState extends State<ViewData> {
                         },
                         icon: Icon(
                           Icons.edit,
-                          color: edit ? Colors.purpleAccent : Colors.white,
+                          color: edit
+                              ? Colors.purpleAccent
+                              : Theme.of(context).colorScheme.secondary,
                           size: 28,
                         ),
                       ),
@@ -103,8 +105,8 @@ class _ViewDataState extends State<ViewData> {
                   children: [
                     Text(
                       edit ? "Edit" : "View",
-                      style: const TextStyle(
-                        color: Colors.white,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.secondary,
                         fontSize: 33,
                         fontWeight: FontWeight.bold,
                         letterSpacing: 4,
@@ -113,10 +115,10 @@ class _ViewDataState extends State<ViewData> {
                     const SizedBox(
                       height: 8,
                     ),
-                    const Text(
-                      "Your Todo",
+                    Text(
+                      "Your To-do",
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Theme.of(context).colorScheme.secondary,
                         fontSize: 33,
                         fontWeight: FontWeight.bold,
                         letterSpacing: 2,
@@ -223,11 +225,11 @@ class _ViewDataState extends State<ViewData> {
             ],
           ),
         ),
-        child: const Center(
+        child: Center(
           child: Text(
-            "Update Todo",
+            "Update To-do",
             style: TextStyle(
-              color: Colors.white,
+              color: Theme.of(context).colorScheme.secondary,
               fontSize: 18,
               fontWeight: FontWeight.w600,
             ),
@@ -242,25 +244,25 @@ class _ViewDataState extends State<ViewData> {
       height: 150,
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
-        color: const Color(0xff2a2e3d),
+        color: Theme.of(context).colorScheme.tertiaryContainer,
         borderRadius: BorderRadius.circular(15),
       ),
       child: TextFormField(
         controller: _descriptionController,
         enabled: edit,
-        style: const TextStyle(
-          color: Colors.grey,
+        style: TextStyle(
+          color: Theme.of(context).colorScheme.tertiary,
           fontSize: 17,
         ),
         maxLines: null,
-        decoration: const InputDecoration(
+        decoration: InputDecoration(
           border: InputBorder.none,
           hintText: "Task Description",
           hintStyle: TextStyle(
-            color: Colors.grey,
+            color: Theme.of(context).colorScheme.tertiary,
             fontSize: 17,
           ),
-          contentPadding: EdgeInsets.only(
+          contentPadding: const EdgeInsets.only(
             left: 20,
             right: 20,
           ),
@@ -279,14 +281,18 @@ class _ViewDataState extends State<ViewData> {
             }
           : null,
       child: Chip(
-        backgroundColor: type == label ? Colors.white : Color(color),
+        backgroundColor: type == label
+            ? Theme.of(context).colorScheme.secondary
+            : Color(color),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
         label: Text(
           label,
           style: TextStyle(
-            color: type == label ? Colors.black : Colors.white,
+            color: type == label
+                ? Theme.of(context).colorScheme.primary
+                : Theme.of(context).colorScheme.secondary,
             fontSize: 15,
             fontWeight: FontWeight.w600,
           ),
@@ -306,14 +312,18 @@ class _ViewDataState extends State<ViewData> {
             }
           : null,
       child: Chip(
-        backgroundColor: category == label ? Colors.white : Color(color),
+        backgroundColor: category == label
+            ? Theme.of(context).colorScheme.secondary
+            : Color(color),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
         label: Text(
           label,
           style: TextStyle(
-            color: category == label ? Colors.black : Colors.white,
+            color: category == label
+                ? Theme.of(context).colorScheme.primary
+                : Theme.of(context).colorScheme.secondary,
             fontSize: 15,
             fontWeight: FontWeight.w600,
           ),
@@ -328,25 +338,25 @@ class _ViewDataState extends State<ViewData> {
       height: 55,
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
-        color: const Color(0xff2a2e3d),
+        color: Theme.of(context).colorScheme.tertiaryContainer,
         borderRadius: BorderRadius.circular(15),
       ),
       child: Center(
         child: TextFormField(
           controller: _titleController,
           enabled: edit,
-          style: const TextStyle(
-            color: Colors.grey,
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.tertiary,
             fontSize: 17,
           ),
-          decoration: const InputDecoration(
+          decoration: InputDecoration(
             border: InputBorder.none,
             hintText: "Task Title",
             hintStyle: TextStyle(
-              color: Colors.grey,
+              color: Theme.of(context).colorScheme.tertiary,
               fontSize: 17,
             ),
-            contentPadding: EdgeInsets.only(
+            contentPadding: const EdgeInsets.only(
               left: 20,
               right: 20,
               bottom: 0,
@@ -360,8 +370,8 @@ class _ViewDataState extends State<ViewData> {
   Widget label(String label) {
     return Text(
       label,
-      style: const TextStyle(
-          color: Colors.white,
+      style: TextStyle(
+          color: Theme.of(context).colorScheme.secondary,
           fontSize: 16.5,
           fontWeight: FontWeight.w600,
           letterSpacing: 0.2),
