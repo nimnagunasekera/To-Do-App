@@ -1,7 +1,11 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:todo/custom/todo_card.dart';
 import 'package:todo/pages/add_todo.dart';
 import 'package:todo/pages/profile.dart';
@@ -23,6 +27,28 @@ class _HomePageState extends State<HomePage> {
       FirebaseFirestore.instance.collection("Todo").snapshots();
   List<Select> selected = [];
   late String currentDate;
+  String imageUrl = "";
+
+  void pickUploadImage() async {
+    final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+
+    Reference ref = FirebaseStorage.instance.ref().child("profile.png");
+
+    await ref.putFile(File(image!.path));
+    ref.getDownloadURL().then((value) {
+      // ignore: avoid_print
+      print(value);
+      setState(() {
+        imageUrl = value;
+      });
+    });
+  }
+
+  void removeImage() {
+    setState(() {
+      imageUrl = "";
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,9 +65,33 @@ class _HomePageState extends State<HomePage> {
             color: Colors.white,
           ),
         ),
-        actions: const [
-          CircleAvatar(
-            backgroundImage: AssetImage("assets/avatar.png"),
+        actions: [
+          IconButton(
+            onPressed: removeImage,
+            icon: const Icon(
+              Icons.delete,
+              color: Colors.white,
+            ),
+          ),
+          InkWell(
+            onTap: () {
+              pickUploadImage();
+            },
+            child: Center(
+              child: imageUrl == ""
+                  ? const CircleAvatar(
+                      radius: 16,
+                      backgroundColor: Colors.white,
+                      child: Icon(
+                        Icons.person,
+                        color: Colors.black,
+                      ),
+                    )
+                  : CircleAvatar(
+                      radius: 16,
+                      backgroundImage: NetworkImage(imageUrl),
+                    ),
+            ),
           ),
           SizedBox(
             width: 25,
