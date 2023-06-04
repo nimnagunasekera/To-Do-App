@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:todo/custom/todo_card.dart';
 import 'package:todo/pages/add_todo.dart';
+import 'package:todo/pages/profile.dart';
 import 'package:todo/pages/view_data.dart';
 import '../service/auth_service.dart';
 import 'package:intl/intl.dart';
@@ -127,11 +128,17 @@ class _HomePageState extends State<HomePage> {
             ),
             label: "",
           ),
-          const BottomNavigationBarItem(
-            icon: Icon(
-              Icons.settings,
-              size: 32,
-              color: Colors.white,
+          BottomNavigationBarItem(
+            icon: InkWell(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (builder) => const Profile()));
+              },
+              child: Icon(
+                Icons.settings,
+                size: 32,
+                color: Colors.white,
+              ),
             ),
             label: "",
           ),
