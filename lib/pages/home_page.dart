@@ -55,7 +55,7 @@ class _HomePageState extends State<HomePage> {
 
   void _selectProfileImage() async {
     final pickedImage =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
+        await ImagePicker().pickImage(source: ImageSource.camera);
 
     if (pickedImage != null) {
       setState(() {
@@ -109,6 +109,10 @@ class _HomePageState extends State<HomePage> {
                   height: 50,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
+                    gradient: LinearGradient(colors: const [
+                      Colors.indigoAccent,
+                      Colors.purpleAccent,
+                    ]),
                   ),
                   child: ClipOval(
                     child: _profileImage != null
@@ -116,15 +120,10 @@ class _HomePageState extends State<HomePage> {
                             _profileImage!,
                             fit: BoxFit.cover,
                           )
-                        : Container(
+                        : Icon(
+                            Icons.person,
+                            size: 30,
                             color: Theme.of(context).colorScheme.secondary,
-                            child: Icon(
-                              Icons.person,
-                              size: 30,
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .tertiaryContainer,
-                            ),
                           ),
                   ),
                 ),
@@ -232,7 +231,7 @@ class _HomePageState extends State<HomePage> {
                 );
               },
               child: Icon(
-                Icons.person,
+                Icons.settings,
                 size: 32,
                 color: Theme.of(context).colorScheme.secondary,
               ),

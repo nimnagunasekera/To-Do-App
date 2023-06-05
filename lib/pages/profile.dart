@@ -41,52 +41,57 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Profile'),
+        title: const Text('Settings'),
+        backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            GestureDetector(
-              onTap: widget.onSelectProfileImage,
-              child: Container(
-                width: 150,
-                height: 150,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    color: Theme.of(context).colorScheme.tertiary,
-                    width: 2.0,
+      body: Container(
+        color: Theme.of(context).colorScheme.background,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              GestureDetector(
+                onTap: widget.onSelectProfileImage,
+                child: Container(
+                  width: 150,
+                  height: 150,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    gradient: LinearGradient(colors: [
+                      Colors.indigoAccent,
+                      Colors.purpleAccent,
+                    ]),
+                  ),
+                  child: ClipOval(
+                    child: _profileImage != null
+                        ? Image.file(
+                            _profileImage!,
+                            fit: BoxFit.cover,
+                          )
+                        : Icon(
+                            Icons.person,
+                            size: 100,
+                            color: Theme.of(context).colorScheme.secondary,
+                          ),
                   ),
                 ),
-                child: ClipOval(
-                  child: _profileImage != null
-                      ? Image.file(
-                          _profileImage!,
-                          fit: BoxFit.cover,
-                        )
-                      : Icon(
-                          Icons.person,
-                          size: 100,
-                          color: Theme.of(context).colorScheme.tertiary,
-                        ),
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: widget.onDeleteProfileImage,
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Theme.of(context).colorScheme.secondary,
+                  backgroundColor:
+                      Theme.of(context).colorScheme.tertiaryContainer,
+                ),
+                child: Text(
+                  'Remove Profile Picture',
+                  style:
+                      TextStyle(color: Theme.of(context).colorScheme.secondary),
                 ),
               ),
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: widget.onDeleteProfileImage,
-              style: ElevatedButton.styleFrom(
-                foregroundColor: Theme.of(context).colorScheme.secondary,
-                backgroundColor: Theme.of(context).colorScheme.primary,
-              ),
-              child: Text(
-                'Delete Profile Picture',
-                style:
-                    TextStyle(color: Theme.of(context).colorScheme.secondary),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
