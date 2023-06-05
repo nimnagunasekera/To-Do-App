@@ -1,94 +1,92 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 
-class Profile extends StatefulWidget {
-  const Profile({super.key});
+class ProfilePage extends StatefulWidget {
+  final File? profileImage;
+  final VoidCallback onSelectProfileImage;
+  final VoidCallback onDeleteProfileImage;
+
+  const ProfilePage({
+    Key? key,
+    this.profileImage,
+    required this.onSelectProfileImage,
+    required this.onDeleteProfileImage,
+  }) : super(key: key);
 
   @override
-  State<Profile> createState() => _ProfileState();
+  // ignore: library_private_types_in_public_api
+  _ProfilePageState createState() => _ProfilePageState();
 }
 
-class _ProfileState extends State<Profile> {
-  final ImagePicker picker = ImagePicker();
-  XFile? image;
+class _ProfilePageState extends State<ProfilePage> {
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
-      // ignore: sized_box_for_whitespace
-      body: SafeArea(
-        // ignore: sized_box_for_whitespace
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SizedBox(
-                height: 30,
-              ),
-              CircleAvatar(
-                radius: 68,
-                backgroundImage: getImage(),
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  button(),
-                  IconButton(
-                      onPressed: () async {
-                        image =
-                            await picker.pickImage(source: ImageSource.gallery);
-                        setState(() {
-                          image = image;
-                        });
-                      },
-                      icon: Icon(
-                        Icons.add_a_photo,
-                        color: Theme.of(context).colorScheme.secondaryContainer,
-                        size: 30,
-                      )),
-                ],
-              )
-            ],
-          ),
-        ),
-      ),
-    );
+  void initState() {
+    super.initState();
+    _profileImage = widget.profileImage;
   }
 
-  //This method is used to get the image from the gallery
-  ImageProvider getImage() {
-    if (image != null) {
-      return FileImage(File(image!.path));
-    } else {
-      return const AssetImage("assets/avatar.png");
+  File? _profileImage;
+
+  @override
+  void didUpdateWidget(ProfilePage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.profileImage != widget.profileImage) {
+      setState(() {
+        _profileImage = widget.profileImage;
+      });
     }
   }
 
-  Widget button() {
-    return InkWell(
-      onTap: () {},
-      child: Container(
-        height: 40,
-        width: MediaQuery.of(context).size.width / 2,
-        decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.secondaryContainer,
-          borderRadius: BorderRadius.circular(15),
-        ),
-        child: Center(
-          child: Text(
-            "Upload",
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.secondary,
-              fontSize: 18,
-              fontWeight: FontWeight.w600,
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Profile'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            GestureDetector(
+              onTap: widget.onSelectProfileImage,
+              child: Container(
+                width: 150,
+                height: 150,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: Theme.of(context).colorScheme.tertiary,
+                    width: 2.0,
+                  ),
+                ),
+                child: ClipOval(
+                  child: _profileImage != null
+                      ? Image.file(
+                          _profileImage!,
+                          fit: BoxFit.cover,
+                        )
+                      : Icon(
+                          Icons.person,
+                          size: 100,
+                          color: Theme.of(context).colorScheme.tertiary,
+                        ),
+                ),
+              ),
             ),
-          ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: widget.onDeleteProfileImage,
+              style: ElevatedButton.styleFrom(
+                foregroundColor: Theme.of(context).colorScheme.secondary,
+                backgroundColor: Theme.of(context).colorScheme.primary,
+              ),
+              child: Text(
+                'Delete Profile Picture',
+                style:
+                    TextStyle(color: Theme.of(context).colorScheme.secondary),
+              ),
+            ),
+          ],
         ),
       ),
     );

@@ -46,8 +46,8 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: lightTheme,
-      // theme: darkTheme,
+      // theme: lightTheme,
+      theme: darkTheme,
       home: const SignUpPage(),
       debugShowCheckedModeBanner: false,
     );
