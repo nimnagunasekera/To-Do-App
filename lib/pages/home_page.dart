@@ -117,11 +117,13 @@ class _HomePageState extends State<HomePage> {
                             fit: BoxFit.cover,
                           )
                         : Container(
-                            color: Theme.of(context).colorScheme.tertiary,
+                            color: Theme.of(context).colorScheme.secondary,
                             child: Icon(
                               Icons.person,
                               size: 30,
-                              color: Theme.of(context).colorScheme.secondary,
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .tertiaryContainer,
                             ),
                           ),
                   ),
