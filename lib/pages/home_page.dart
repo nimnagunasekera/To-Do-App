@@ -147,20 +147,23 @@ class _HomePageState extends State<HomePage> {
                         color: Theme.of(context).colorScheme.secondary,
                       ),
                     ),
-                    IconButton(
-                      onPressed: () {
-                        var instance =
-                            FirebaseFirestore.instance.collection("Todo");
-                        for (int i = 0; i < selected.length; i++) {
-                          if (selected[i].checkValue) {
-                            instance.doc(selected[i].id).delete();
+                    Container(
+                      margin: const EdgeInsets.only(right: 8.0),
+                      child: IconButton(
+                        onPressed: () {
+                          var instance =
+                              FirebaseFirestore.instance.collection("Todo");
+                          for (int i = 0; i < selected.length; i++) {
+                            if (selected[i].checkValue) {
+                              instance.doc(selected[i].id).delete();
+                            }
                           }
-                        }
-                      },
-                      icon: const Icon(
-                        Icons.delete,
-                        color: Color.fromARGB(255, 196, 16, 3),
-                        size: 28,
+                        },
+                        icon: const Icon(
+                          Icons.delete,
+                          color: Color.fromARGB(255, 196, 16, 3),
+                          size: 28,
+                        ),
                       ),
                     ),
                   ],
