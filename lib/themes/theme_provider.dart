@@ -9,7 +9,7 @@ enum ThemeType {
 }
 
 class ThemeProvider with ChangeNotifier {
-  ThemeData _themeData = darkTheme; // Set the default theme to lightTheme
+  ThemeData _themeData = lightTheme; // Set the default theme to lightTheme
 
   ThemeData getTheme() => _themeData;
 
