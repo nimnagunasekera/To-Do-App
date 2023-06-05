@@ -270,7 +270,7 @@ class _HomePageState extends State<HomePage> {
                   break;
                 case "Design":
                   iconData = Icons.design_services;
-                  iconColor = Color(0xff234ebd);
+                  iconColor = Color.fromARGB(255, 35, 189, 86);
                   break;
                 case "Run":
                   iconData = Icons.run_circle;
