@@ -1,5 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todo/themes/theme_provider.dart';
 
 class ProfilePage extends StatefulWidget {
   final File? profileImage;
@@ -19,13 +21,13 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  File? _profileImage;
+
   @override
   void initState() {
     super.initState();
     _profileImage = widget.profileImage;
   }
-
-  File? _profileImage;
 
   @override
   void didUpdateWidget(ProfilePage oldWidget) {
@@ -39,10 +41,21 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Settings'),
-        backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
+        foregroundColor: themeProvider.getTheme().colorScheme.secondary,
+        backgroundColor: themeProvider.getTheme().colorScheme.tertiaryContainer,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.lightbulb),
+            onPressed: () {
+              themeProvider.toggleTheme();
+            },
+          ),
+        ],
       ),
       body: Container(
         color: Theme.of(context).colorScheme.background,

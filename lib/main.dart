@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:provider/provider.dart'; // Import the provider package
 import 'package:todo/pages/home_page.dart';
 // import 'package:todo/pages/sign_in_page.dart';
 import 'package:todo/pages/sign_up_page.dart';
@@ -9,12 +10,20 @@ import 'package:todo/service/auth_service.dart';
 import 'package:todo/themes/dark_theme.dart';
 import 'package:todo/themes/light_theme.dart';
 import 'firebase_options.dart';
+
+import 'themes/theme_provider.dart';
+
 // import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => ThemeProvider(), // Create the ThemeProvider instance
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -45,9 +54,12 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider =
+        Provider.of<ThemeProvider>(context); // Access the ThemeProvider
+
     return MaterialApp(
-      // theme: lightTheme,
-      theme: darkTheme,
+      theme: themeProvider
+          .getTheme(), // Use the current theme from the ThemeProvider
       home: const SignUpPage(),
       debugShowCheckedModeBanner: false,
     );
