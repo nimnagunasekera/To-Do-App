@@ -47,7 +47,8 @@ class _ProfilePageState extends State<ProfilePage> {
       appBar: AppBar(
         title: const Text('Settings'),
         foregroundColor: themeProvider.getTheme().colorScheme.secondary,
-        backgroundColor: themeProvider.getTheme().colorScheme.tertiaryContainer,
+        backgroundColor:
+            themeProvider.getTheme().colorScheme.secondaryContainer,
         actions: [
           IconButton(
             icon: const Icon(Icons.lightbulb),
@@ -95,7 +96,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Theme.of(context).colorScheme.secondary,
                   backgroundColor:
-                      Theme.of(context).colorScheme.tertiaryContainer,
+                      Theme.of(context).colorScheme.secondaryContainer,
                 ),
                 child: Text(
                   'Remove Profile Picture',

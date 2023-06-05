@@ -59,7 +59,7 @@ class TodoCard extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
-                color: Theme.of(context).colorScheme.secondaryContainer,
+                color: Theme.of(context).colorScheme.tertiaryContainer,
                 child: Row(
                   children: [
                     const SizedBox(
@@ -83,19 +83,19 @@ class TodoCard extends StatelessWidget {
                     Expanded(
                       child: Text(
                         title,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 18,
                           letterSpacing: 1,
                           fontWeight: FontWeight.w500,
-                          color: Colors.white,
+                          color: Theme.of(context).colorScheme.secondary,
                         ),
                       ),
                     ),
                     Text(
                       time,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 15,
-                        color: Colors.white,
+                        color: Theme.of(context).colorScheme.secondary,
                       ),
                     ),
                     const SizedBox(

@@ -85,7 +85,7 @@ class _HomePageState extends State<HomePage> {
         preferredSize: Size.fromHeight(110),
         child: AppBar(
           elevation: 0,
-          backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
+          backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
           title: Padding(
             padding: const EdgeInsets.only(top: 20.0),
             child: Text(
@@ -175,7 +175,7 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
+        backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
         items: [
           BottomNavigationBarItem(
             icon: Icon(
